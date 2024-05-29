@@ -1,0 +1,50 @@
+[workspace]
+members = [
+	"interpreter",
+	"jsontests",
+	"precompile",
+	"tracer",
+]
+resolver = "2"
+
+[workspace.package]
+edition = "2021"
+rust-version = "1.60.0"
+license = "Apache-2.0"
+authors = ["rust-evm Developers <contact-rust-evm@pacna.org>"]
+repository = "https://github.com/rust-ethereum/evm"
+keywords = ["no_std", "ethereum", "evm"]
+
+[package]
+name = "evm"
+version = "1.0.0-dev"
+edition = { workspace = true }
+rust-version = { workspace = true }
+license = { workspace = true }
+authors = { workspace = true }
+repository = { workspace = true }
+keywords = { workspace = true }
+description = "Ethereum Virtual Machine"
+
+[dependencies]
+primitive-types = { version = "0.12", default-features = false, features = ["rlp"] }
+sha3 = { version = "0.10", default-features = false }
+
+evm-interpreter = { version = "1.0.0-dev", path = "interpreter", default-features = false }
+
+[features]
+default = ["std"]
+std = [
+	"primitive-types/std",
+	"sha3/std",
+	"evm-interpreter/std",
+]
+scale = [
+	"primitive-types/codec",
+	"primitive-types/scale-info",
+	"evm-interpreter/scale",
+]
+serde = [
+	"primitive-types/impl-serde",
+	"evm-interpreter/serde",
+]
